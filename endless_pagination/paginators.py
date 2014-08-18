@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 from math import ceil
+import pdb
 
 from django.core.paginator import (
     EmptyPage,
@@ -91,11 +92,10 @@ class LazyPaginator(BasePaginator):
     def page(self, number):
         number = self.validate_number(number)
         current_per_page = self.get_current_per_page(number)
-        if number == 1:
-            bottom = 0
-        else:
-            bottom = ((number - 2) * self.per_page + self.first_page)
+
+        bottom = 0
         top = bottom + current_per_page
+
         # Retrieve more objects to check if there is a next page.
         objects = list(self.object_list[bottom:top + self.orphans + 1])
         objects_count = len(objects)

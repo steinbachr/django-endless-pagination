@@ -55,7 +55,11 @@
                     var data = 'querystring_key=' + context.key;
                     // Send the Ajax request.
                     $.get(context.url, data, function(fragment) {
-                        container.before(fragment);
+                        try {
+                            container.before(fragment);
+                        } catch (err) {
+                        }
+
                         container.remove();
                         // Increase the number of loaded pages.
                         loadedPages += 1;
@@ -78,7 +82,10 @@
                         // the current chunk is complete.
                         var chunckSize = settings.paginateOnScrollChunkSize;
                         if (!chunckSize || loadedPages % chunckSize) {
-                            element.find(settings.moreSelector).click();
+                            var $moreSelector = element.find(settings.moreSelector);
+                            if ($moreSelector.attr('href') !== '') {
+                                $moreSelector.click();
+                            }
                         }
                     }
                 });

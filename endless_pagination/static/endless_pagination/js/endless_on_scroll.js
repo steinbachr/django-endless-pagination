@@ -8,7 +8,9 @@
         }
         $(window).scroll(function(){
             if ($(document).height() - $(window).height() - $(window).scrollTop() <= margin) {
-                $("a.endless_more").click();
+                if ($('a.endless_more').attr('href') !== "") {
+                    $("a.endless_more").click();
+                }
             }
         });
     });
